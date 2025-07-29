@@ -1,0 +1,34 @@
+name: 'Update Production'
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        type: choice
+        description: "Type of Release: regular, patch or custom"
+        required: true
+        default: "regular"
+        options:
+          - regular
+          - patch
+          - custom
+      version:
+        type: string
+        description: "next version number, if Release is custom"
+        required: false
+      branch:
+        type: string
+        description: "Branch to be released"
+        required: false
+        default: "master"
+
+jobs:
+  release:
+    uses: hitobito/hitobito/.github/workflows/release.yml@master
+    with:
+      composition: ${{ github.repository }}
+      release_type: ${{ inputs.release }}
+      next_version: ${{ inputs.version }}
+      stage: production
+      target_branch: ${{ inputs.branch }}
+    secrets: inherit
