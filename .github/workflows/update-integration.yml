@@ -11,6 +11,7 @@ on:
   # enable this in your composition-repo with the correct time
   # schedule:
   #  - cron: 35 3 * * 1-5
+  #    timezone: 'Europe/Berlin'
 
 jobs:
   release:
